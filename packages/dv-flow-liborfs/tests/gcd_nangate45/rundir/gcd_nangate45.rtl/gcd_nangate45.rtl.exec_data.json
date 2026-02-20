@@ -1,0 +1,83 @@
+{
+  "name": "gcd_nangate45.rtl",
+  "srcdir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45",
+  "rundir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/rundir/gcd_nangate45.rtl",
+  "params": {
+    "base": "",
+    "type": "verilogSource",
+    "incdirs": [],
+    "defines": [],
+    "attributes": [],
+    "include": [
+      "src/gcd.v"
+    ],
+    "exclude": []
+  },
+  "inputs_signature": [],
+  "input": {
+    "name": "gcd_nangate45.rtl",
+    "changed": false,
+    "srcdir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45",
+    "rundir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/rundir/gcd_nangate45.rtl",
+    "params": {
+      "base": "",
+      "type": "verilogSource",
+      "incdirs": [],
+      "defines": [],
+      "attributes": [],
+      "include": [
+        "src/gcd.v"
+      ],
+      "exclude": []
+    },
+    "inputs": [],
+    "memento": {
+      "files": [
+        [
+          "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/src/gcd.v",
+          1771615113.7981515
+        ]
+      ]
+    }
+  },
+  "needs": [],
+  "commands": [],
+  "result": {
+    "status": 0,
+    "changed": false,
+    "memento": {
+      "files": [
+        [
+          "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/src/gcd.v",
+          1771615113.7981515
+        ]
+      ]
+    }
+  },
+  "output": {
+    "changed": false,
+    "output": [
+      {
+        "type": "std.FileSet",
+        "filetype": "verilogSource",
+        "basedir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45",
+        "name": "",
+        "src": "gcd_nangate45.rtl",
+        "seq": 0,
+        "files": [
+          "src/gcd.v"
+        ],
+        "incdirs": [],
+        "defines": [],
+        "params": {},
+        "attributes": []
+      }
+    ],
+    "dep_m": {
+      "gcd_nangate45.rtl": []
+    }
+  },
+  "consumes": "ConsumesE.No",
+  "passthrough": "PassthroughE.All",
+  "produces": null
+}

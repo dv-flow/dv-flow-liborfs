@@ -1,0 +1,152 @@
+{
+  "name": "gcd_nangate45.grt",
+  "srcdir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45",
+  "rundir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/rundir/gcd_nangate45.grt",
+  "params": {
+    "flow_home": "",
+    "routing_layer_adjustment": "",
+    "tns_end_percent": 100,
+    "min_routing_layer": "",
+    "max_routing_layer": ""
+  },
+  "inputs_signature": [
+    {
+      "src": "gcd_nangate45.pdk",
+      "seq": 0,
+      "type": "std.FileSet"
+    },
+    {
+      "src": "gcd_nangate45.design",
+      "seq": 0,
+      "type": "orfs.DesignConfig"
+    },
+    {
+      "src": "gcd_nangate45.cts",
+      "seq": 0,
+      "type": "std.FileSet"
+    }
+  ],
+  "input": {
+    "name": "gcd_nangate45.grt",
+    "changed": true,
+    "srcdir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45",
+    "rundir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/rundir/gcd_nangate45.grt",
+    "params": {
+      "flow_home": "",
+      "routing_layer_adjustment": "",
+      "tns_end_percent": 100,
+      "min_routing_layer": "",
+      "max_routing_layer": ""
+    },
+    "inputs": [
+      {
+        "type": "std.FileSet",
+        "filetype": "orfsOpenRoadPlatform",
+        "basedir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs-nangate45/src/dv_flow/liborfs_nangate45/share/nangate45",
+        "name": "",
+        "src": "gcd_nangate45.pdk",
+        "seq": 0,
+        "files": [],
+        "incdirs": [],
+        "defines": [],
+        "params": {},
+        "attributes": []
+      },
+      {
+        "src": "gcd_nangate45.design",
+        "seq": 0,
+        "type": "orfs.DesignConfig",
+        "design_name": "gcd",
+        "design_nickname": "gcd",
+        "clock_period_ps": 1100,
+        "blocks": [],
+        "verilog_defines": [],
+        "synth_hierarchical": false,
+        "num_cores": 0,
+        "verilog_files": [
+          "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/src/gcd.v"
+        ],
+        "sdc_file": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/src/constraint.sdc"
+      },
+      {
+        "type": "std.FileSet",
+        "filetype": "orfsODB",
+        "basedir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/rundir/gcd_nangate45.cts/results",
+        "name": "",
+        "src": "gcd_nangate45.cts",
+        "seq": 0,
+        "files": [
+          "4_cts.odb"
+        ],
+        "incdirs": [],
+        "defines": [],
+        "params": {},
+        "attributes": []
+      }
+    ],
+    "memento": null
+  },
+  "needs": [
+    "gcd_nangate45.pdk",
+    "gcd_nangate45.design",
+    "gcd_nangate45.cts"
+  ],
+  "commands": [
+    {
+      "cmd": [
+        "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/openroad-bin/bin/openroad.sh",
+        "-no_splash",
+        "-exit",
+        "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/src/dv_flow/liborfs/share/scripts/global_route.tcl",
+        "-metrics",
+        "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/rundir/gcd_nangate45.grt/logs/5_1_grt.json"
+      ],
+      "status": 0
+    }
+  ],
+  "result": {
+    "status": 0,
+    "changed": true,
+    "memento": null
+  },
+  "output": {
+    "changed": true,
+    "output": [
+      {
+        "type": "std.FileSet",
+        "filetype": "orfsODB",
+        "basedir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/rundir/gcd_nangate45.grt/results",
+        "name": "",
+        "src": "gcd_nangate45.grt",
+        "seq": 0,
+        "files": [
+          "5_1_grt.odb"
+        ],
+        "incdirs": [],
+        "defines": [],
+        "params": {},
+        "attributes": []
+      }
+    ],
+    "dep_m": {
+      "gcd_nangate45.grt": [
+        "gcd_nangate45.pdk",
+        "gcd_nangate45.design",
+        "gcd_nangate45.cts"
+      ]
+    }
+  },
+  "consumes": [
+    {
+      "filetype": "orfsOpenRoadPlatform"
+    },
+    {
+      "type": "orfs.DesignConfig"
+    },
+    {
+      "filetype": "orfsODB"
+    }
+  ],
+  "passthrough": "PassthroughE.Unused",
+  "produces": null
+}

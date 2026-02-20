@@ -1,0 +1,81 @@
+# yaml-language-server: $schema=https://dv-flow.github.io/flow.dv.schema.json
+#****************************************************************************
+#* Complete RTL-to-GDS example for the GCD design on NanGate45 PDK
+#*
+#* This flow.dv runs the GCD design through every OpenROAD ORFS stage:
+#*   Synth → Floorplan → Place → CTS → GlobalRoute → Route → Finish
+#*
+#* Prerequisites:
+#*   pip install dv-flow-liborfs dv-flow-liborfs-nangate45
+#*
+#* Run:
+#*   OPENROAD_EXE=... YOSYS_EXE=... dfm run finish
+#****************************************************************************
+
+package:
+  name: gcd_nangate45
+  desc: GCD design through nangate45 OpenROAD flow
+
+  imports:
+  - name: orfs
+  - name: orfs.nangate45
+
+  tasks:
+  - name: pdk
+    uses: orfs.nangate45.Platform
+
+  - name: rtl
+    uses: std.FileSet
+    with:
+      type: verilogSource
+      include: "src/gcd.v"
+
+  - name: sdc
+    uses: std.FileSet
+    with:
+      type: sdc
+      include: "src/constraint.sdc"
+
+  - name: design
+    uses: orfs.DesignConfig
+    needs: [rtl, sdc]
+    with:
+      design_name: gcd
+      clock_period_ps: 1100
+
+  - name: synth
+    uses: orfs.Synth
+    needs: [pdk, design]
+
+  - name: floorplan
+    uses: orfs.Floorplan
+    needs: [pdk, design, synth]
+    with:
+      core_utilization: 45
+
+  - name: place
+    uses: orfs.Place
+    needs: [pdk, design, floorplan]
+
+  - name: cts
+    uses: orfs.CTS
+    needs: [pdk, design, place]
+
+  - name: grt
+    uses: orfs.GlobalRoute
+    needs: [pdk, design, cts]
+
+  - name: route
+    uses: orfs.Route
+    needs: [pdk, design, grt]
+
+  - name: finish
+    uses: orfs.Finish
+    needs: [pdk, design, route]
+
+  - name: check
+    uses: orfs.MetricsCheck
+    needs: [finish]
+    with:
+      wns_threshold: 0.0
+      max_drc: 0

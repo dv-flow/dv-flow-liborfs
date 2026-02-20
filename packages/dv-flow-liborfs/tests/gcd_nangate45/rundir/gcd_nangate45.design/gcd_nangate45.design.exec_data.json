@@ -1,0 +1,124 @@
+{
+  "name": "gcd_nangate45.design",
+  "srcdir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45",
+  "rundir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/rundir/gcd_nangate45.design",
+  "params": {
+    "design_name": "gcd",
+    "design_nickname": "",
+    "clock_period_ps": 1100,
+    "blocks": [],
+    "verilog_defines": [],
+    "synth_hierarchical": false,
+    "num_cores": 0
+  },
+  "inputs_signature": [
+    {
+      "src": "gcd_nangate45.rtl",
+      "seq": 0,
+      "type": "std.FileSet"
+    },
+    {
+      "src": "gcd_nangate45.sdc",
+      "seq": 0,
+      "type": "std.FileSet"
+    }
+  ],
+  "input": {
+    "name": "gcd_nangate45.design",
+    "changed": true,
+    "srcdir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45",
+    "rundir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/rundir/gcd_nangate45.design",
+    "params": {
+      "design_name": "gcd",
+      "design_nickname": "",
+      "clock_period_ps": 1100,
+      "blocks": [],
+      "verilog_defines": [],
+      "synth_hierarchical": false,
+      "num_cores": 0
+    },
+    "inputs": [
+      {
+        "type": "std.FileSet",
+        "filetype": "verilogSource",
+        "basedir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45",
+        "name": "",
+        "src": "gcd_nangate45.rtl",
+        "seq": 0,
+        "files": [
+          "src/gcd.v"
+        ],
+        "incdirs": [],
+        "defines": [],
+        "params": {},
+        "attributes": []
+      },
+      {
+        "type": "std.FileSet",
+        "filetype": "sdc",
+        "basedir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45",
+        "name": "",
+        "src": "gcd_nangate45.sdc",
+        "seq": 0,
+        "files": [
+          "src/constraint.sdc"
+        ],
+        "incdirs": [],
+        "defines": [],
+        "params": {},
+        "attributes": []
+      }
+    ],
+    "memento": null
+  },
+  "needs": [
+    "gcd_nangate45.rtl",
+    "gcd_nangate45.sdc"
+  ],
+  "commands": [],
+  "result": {
+    "status": 0,
+    "changed": true,
+    "memento": null
+  },
+  "output": {
+    "changed": true,
+    "output": [
+      {
+        "src": "gcd_nangate45.design",
+        "seq": 0,
+        "type": "orfs.DesignConfig",
+        "design_name": "gcd",
+        "design_nickname": "gcd",
+        "clock_period_ps": 1100,
+        "blocks": [],
+        "verilog_defines": [],
+        "synth_hierarchical": false,
+        "num_cores": 0,
+        "verilog_files": [
+          "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/src/gcd.v"
+        ],
+        "sdc_file": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/src/constraint.sdc"
+      }
+    ],
+    "dep_m": {
+      "gcd_nangate45.design": [
+        "gcd_nangate45.rtl",
+        "gcd_nangate45.sdc"
+      ]
+    }
+  },
+  "consumes": [
+    {
+      "filetype": "verilogSource"
+    },
+    {
+      "filetype": "systemVerilogSource"
+    },
+    {
+      "filetype": "sdc"
+    }
+  ],
+  "passthrough": "PassthroughE.Unused",
+  "produces": null
+}

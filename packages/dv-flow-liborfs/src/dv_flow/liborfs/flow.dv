@@ -1,0 +1,379 @@
+# yaml-language-server: $schema=https://dv-flow.github.io/flow.dv.schema.json
+#****************************************************************************
+#* flow.dv — DV Flow task definitions for the OpenROAD RTL-to-GDS flow
+#*
+#* Copyright 2023-2025 Matthew Ballance and Contributors
+#*
+#* Licensed under the Apache License, Version 2.0 (the "License"); you may
+#* not use this file except in compliance with the License.
+#* You may obtain a copy of the License at:
+#*   http://www.apache.org/licenses/LICENSE-2.0
+#****************************************************************************
+
+package:
+  name: orfs
+  desc: DV Flow tasks for the OpenROAD RTL-to-GDS flow (ORFS)
+
+  types:
+  # ── Design-level configuration DataItem ──────────────────────────────────
+  - name: DesignConfig
+    uses: std.DataItem
+    doc: |
+      Carries design-level parameters and resolved RTL/SDC paths.
+      Produced by orfs.DesignConfig task; consumed by all stage tasks.
+    with:
+      design_name:
+        type: str
+        value: ""
+      design_nickname:
+        type: str
+        value: ""
+      clock_period_ps:
+        type: int
+        value: 0
+      blocks:
+        type: list
+        value: []
+      verilog_defines:
+        type: list
+        value: []
+      synth_hierarchical:
+        type: bool
+        value: false
+      num_cores:
+        type: int
+        value: 0
+      verilog_files:
+        type: list
+        value: []
+        doc: Resolved absolute paths to RTL source files (populated by DesignConfig task)
+      sdc_file:
+        type: str
+        value: ""
+        doc: Resolved absolute path to SDC constraints file (populated by DesignConfig task)
+
+  tasks:
+  # ── Design configuration ─────────────────────────────────────────────────
+  - export: DesignConfig
+    desc: Declares design identity and collects RTL/SDC sources
+    doc: |
+      Consumes RTL (verilogSource / systemVerilogSource) and SDC FileSets.
+      Produces an orfs.DesignConfig DataItem plus passes through all consumed
+      FileSets so downstream stage tasks can see VERILOG_FILES.
+
+      Example:
+        - name: design
+          uses: orfs.DesignConfig
+          needs: [rtl, sdc]
+          with:
+            design_name: gcd
+            clock_period: 1.0
+    pytask: dv_flow.liborfs.orfs_design_config.DesignConfig
+    consumes:
+    - filetype: verilogSource
+    - filetype: systemVerilogSource
+    - filetype: sdc
+    with:
+      design_name:
+        type: str
+        value: ""
+        doc: Top-level design name (DESIGN_NAME)
+      design_nickname:
+        type: str
+        value: ""
+        doc: Short nickname for result directories (defaults to design_name)
+      clock_period_ps:
+        type: int
+        value: 0
+        doc: Clock period in picoseconds (ABC_CLOCK_PERIOD_IN_PS)
+      blocks:
+        type: list
+        value: []
+        doc: Hierarchical sub-block names (BLOCKS)
+      verilog_defines:
+        type: list
+        value: []
+        doc: Preprocessor defines (VERILOG_DEFINES)
+      synth_hierarchical:
+        type: bool
+        value: false
+        doc: Enable hierarchical synthesis (SYNTH_HIERARCHICAL)
+      num_cores:
+        type: int
+        value: 0
+        doc: CPU cores for parallel steps; 0 = autodetect (NUM_CORES)
+
+  # ── Synthesis ─────────────────────────────────────────────────────────────
+  - export: Synth
+    desc: RTL synthesis using Yosys + OpenROAD (3 substeps)
+    doc: |
+      Substep 1: yosys synth_canonicalize.tcl → 1_1_yosys_canonicalize.rtlil
+      Substep 2: yosys synth.tcl             → 1_2_yosys.v + 1_2_yosys.sdc
+      Substep 3: openroad synth_odb.tcl      → 1_synth.odb + 1_synth.sdc
+
+      Emits an orfsODB FileSet pointing to results/1_synth.odb.
+    pytask: dv_flow.liborfs.orfs_synth.Synth
+    consumes:
+    - filetype: orfsOpenRoadPlatform
+    - type: orfs.DesignConfig
+    with:
+      flow_home:
+        type: str
+        value: ""
+        doc: Path to ORFS scripts dir; empty = use bundled or ORFS_FLOW_HOME env var
+      synth_args:
+        type: str
+        value: ""
+        doc: Extra Yosys synthesis arguments (SYNTH_ARGS)
+      synth_gut:
+        type: bool
+        value: false
+        doc: Replace all cell internals with wires (SYNTH_GUT)
+      synth_memory_max_bits:
+        type: int
+        value: 4096
+        doc: Max bits for memory synthesis (SYNTH_MEMORY_MAX_BITS)
+
+  # ── Floorplan ─────────────────────────────────────────────────────────────
+  - export: Floorplan
+    desc: Floorplan stage — init, macro place, tapcell, PDN (4 substeps)
+    doc: |
+      Substep 2_1: floorplan.tcl       → initial die/core area
+      Substep 2_2: macro_place.tcl     → place macros
+      Substep 2_3: tapcell.tcl         → insert tap cells
+      Substep 2_4: pdn.tcl             → power distribution network
+      Emits orfsODB pointing to results/2_floorplan.odb.
+    pytask: dv_flow.liborfs.orfs_floorplan.Floorplan
+    consumes:
+    - filetype: orfsOpenRoadPlatform
+    - type: orfs.DesignConfig
+    - filetype: orfsODB
+    with:
+      flow_home:
+        type: str
+        value: ""
+      core_utilization:
+        type: int
+        value: 0
+        doc: Target core utilization 0–100 (CORE_UTILIZATION); 0 = platform default
+      core_aspect_ratio:
+        type: str
+        value: ""
+        doc: Core height/width ratio (CORE_ASPECT_RATIO); empty = platform default
+      core_margin:
+        type: str
+        value: ""
+        doc: Core margin in microns (CORE_MARGIN); empty = platform default
+      die_area:
+        type: str
+        value: ""
+        doc: Explicit die area "x0 y0 x1 y1" in microns (DIE_AREA); overrides utilization
+      core_area:
+        type: str
+        value: ""
+        doc: Explicit core area "x0 y0 x1 y1" in microns (CORE_AREA)
+      pdn_tcl:
+        type: str
+        value: ""
+        doc: Override PDN TCL script path; empty = use platform default
+
+  # ── Placement ─────────────────────────────────────────────────────────────
+  - export: Place
+    desc: Global and detailed placement (5 substeps)
+    doc: |
+      Substep 3_1: global_place_skip_io.tcl  → coarse global placement
+      Substep 3_2: io_placement.tcl           → I/O pin placement
+      Substep 3_3: global_place.tcl           → refined global placement
+      Substep 3_4: resize.tcl                 → timing-driven resizing
+      Substep 3_5: detail_place.tcl           → detailed (legalized) placement
+      Emits orfsODB pointing to results/3_place.odb.
+    pytask: dv_flow.liborfs.orfs_place.Place
+    consumes:
+    - filetype: orfsOpenRoadPlatform
+    - type: orfs.DesignConfig
+    - filetype: orfsODB
+    with:
+      flow_home:
+        type: str
+        value: ""
+      place_density:
+        type: str
+        value: ""
+        doc: Placement density 0–1 (PLACE_DENSITY); empty = platform default
+      place_density_lb_addon:
+        type: str
+        value: ""
+        doc: Placement density lower-bound add-on (PLACE_DENSITY_LB_ADDON)
+      global_placement_args:
+        type: str
+        value: ""
+        doc: Extra global placement arguments (GLOBAL_PLACEMENT_ARGS)
+
+  # ── Clock Tree Synthesis ───────────────────────────────────────────────────
+  - export: CTS
+    desc: Clock tree synthesis
+    doc: |
+      Substep 4_1: cts.tcl → clock tree insertion and optimization
+      Emits orfsODB pointing to results/4_cts.odb.
+    pytask: dv_flow.liborfs.orfs_cts.CTS
+    consumes:
+    - filetype: orfsOpenRoadPlatform
+    - type: orfs.DesignConfig
+    - filetype: orfsODB
+    with:
+      flow_home:
+        type: str
+        value: ""
+      cts_cluster_size:
+        type: int
+        value: 0
+        doc: CTS cluster size (CTS_CLUSTER_SIZE); 0 = platform default
+      cts_cluster_diameter:
+        type: int
+        value: 0
+        doc: CTS cluster diameter (CTS_CLUSTER_DIAMETER)
+      cts_buf_distance:
+        type: int
+        value: 0
+        doc: Buffer insertion distance (CTS_BUF_DISTANCE)
+      cts_args:
+        type: str
+        value: ""
+        doc: Additional CTS arguments
+
+  # ── Global Route ───────────────────────────────────────────────────────────
+  - export: GlobalRoute
+    desc: Global routing
+    doc: |
+      Substep 5_1: global_route.tcl → global routing with congestion analysis
+      Emits orfsODB pointing to results/5_1_grt.odb.
+      Kept separate from Route so users can sweep routing parameters independently.
+    pytask: dv_flow.liborfs.orfs_grt.GlobalRoute
+    consumes:
+    - filetype: orfsOpenRoadPlatform
+    - type: orfs.DesignConfig
+    - filetype: orfsODB
+    with:
+      flow_home:
+        type: str
+        value: ""
+      routing_layer_adjustment:
+        type: str
+        value: ""
+        doc: Routing layer capacity adjustment 0–1 (ROUTING_LAYER_ADJUSTMENT); empty = platform default
+      tns_end_percent:
+        type: int
+        value: 100
+        doc: Percentage of violating endpoints to fix (TNS_END_PERCENT)
+      min_routing_layer:
+        type: str
+        value: ""
+        doc: Minimum routing layer name (MIN_ROUTING_LAYER)
+      max_routing_layer:
+        type: str
+        value: ""
+        doc: Maximum routing layer name (MAX_ROUTING_LAYER)
+
+  # ── Detailed Route ─────────────────────────────────────────────────────────
+  - export: Route
+    desc: Detailed routing + fill cell insertion (2 substeps)
+    doc: |
+      Substep 5_2: detail_route.tcl → detailed routing (TritonRoute)
+      Substep 5_3: fillcell.tcl     → filler cell insertion
+      Emits orfsODB pointing to results/5_route.odb.
+    pytask: dv_flow.liborfs.orfs_route.Route
+    consumes:
+    - filetype: orfsOpenRoadPlatform
+    - type: orfs.DesignConfig
+    - filetype: orfsODB
+    with:
+      flow_home:
+        type: str
+        value: ""
+      detailed_route_args:
+        type: str
+        value: ""
+        doc: Extra TritonRoute arguments (DETAILED_ROUTE_ARGS)
+
+  # ── Finish / Sign-off ──────────────────────────────────────────────────────
+  - export: Finish
+    desc: Density fill, final timing/power report, metrics (2 substeps)
+    doc: |
+      Substep 6_1:     density_fill.tcl → metal fill insertion
+      Substep 6_report: final_report.tcl → timing, power, area metrics
+      Emits orfsODB pointing to results/6_1_fill.odb and
+      orfsMetrics FileSet pointing to logs/6_report.json.
+    pytask: dv_flow.liborfs.orfs_finish.Finish
+    consumes:
+    - filetype: orfsOpenRoadPlatform
+    - type: orfs.DesignConfig
+    - filetype: orfsODB
+    with:
+      flow_home:
+        type: str
+        value: ""
+
+  # ── GDS Merge ──────────────────────────────────────────────────────────────
+  - export: GDS
+    desc: GDS streaming via KLayout
+    pytask: dv_flow.liborfs.orfs_gds.GDS
+    consumes:
+    - filetype: orfsOpenRoadPlatform
+    - type: orfs.DesignConfig
+    - filetype: orfsODB
+    with:
+      flow_home:
+        type: str
+        value: ""
+      klayout_tech_file:
+        type: str
+        value: ""
+        doc: Override KLayout tech file; empty = use platform default
+
+  # ── DRC ────────────────────────────────────────────────────────────────────
+  - export: DRC
+    desc: Design Rule Check via KLayout
+    pytask: dv_flow.liborfs.orfs_drc.DRC
+    consumes:
+    - filetype: orfsOpenRoadPlatform
+    - type: orfs.DesignConfig
+    - filetype: orfsGDS
+    with:
+      flow_home:
+        type: str
+        value: ""
+      drc_rules_file:
+        type: str
+        value: ""
+        doc: Override DRC rules file; empty = use platform default
+
+  # ── Metrics Check ──────────────────────────────────────────────────────────
+  - export: MetricsCheck
+    desc: Assert pass/fail thresholds against flow metrics
+    doc: |
+      Reads the JSON metrics file from orfs.Finish and checks configurable
+      thresholds. Emits error markers for any threshold violation.
+
+      Example:
+        - name: check
+          uses: orfs.MetricsCheck
+          needs: [finish]
+          with:
+            wns_threshold: 0.0
+            max_drc: 0
+    pytask: dv_flow.liborfs.orfs_metrics_check.MetricsCheck
+    consumes:
+    - filetype: orfsMetrics
+    with:
+      wns_threshold:
+        type: str
+        value: "0.0"
+        doc: WNS must be >= this value (ns); 0.0 = require timing closure
+      max_drc:
+        type: int
+        value: 0
+        doc: Maximum allowed DRC violations; 0 = require clean DRC
+      max_area_um2:
+        type: str
+        value: "0.0"
+        doc: Maximum die area in um²; 0.0 = no check

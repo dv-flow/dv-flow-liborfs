@@ -1,0 +1,189 @@
+{
+  "name": "gcd_nangate45.floorplan",
+  "srcdir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45",
+  "rundir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/rundir/gcd_nangate45.floorplan",
+  "params": {
+    "flow_home": "",
+    "core_utilization": 45,
+    "core_aspect_ratio": "",
+    "core_margin": "",
+    "die_area": "",
+    "core_area": "",
+    "pdn_tcl": ""
+  },
+  "inputs_signature": [
+    {
+      "src": "gcd_nangate45.pdk",
+      "seq": 0,
+      "type": "std.FileSet"
+    },
+    {
+      "src": "gcd_nangate45.design",
+      "seq": 0,
+      "type": "orfs.DesignConfig"
+    },
+    {
+      "src": "gcd_nangate45.synth",
+      "seq": 0,
+      "type": "std.FileSet"
+    }
+  ],
+  "input": {
+    "name": "gcd_nangate45.floorplan",
+    "changed": true,
+    "srcdir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45",
+    "rundir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/rundir/gcd_nangate45.floorplan",
+    "params": {
+      "flow_home": "",
+      "core_utilization": 45,
+      "core_aspect_ratio": "",
+      "core_margin": "",
+      "die_area": "",
+      "core_area": "",
+      "pdn_tcl": ""
+    },
+    "inputs": [
+      {
+        "type": "std.FileSet",
+        "filetype": "orfsOpenRoadPlatform",
+        "basedir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs-nangate45/src/dv_flow/liborfs_nangate45/share/nangate45",
+        "name": "",
+        "src": "gcd_nangate45.pdk",
+        "seq": 0,
+        "files": [],
+        "incdirs": [],
+        "defines": [],
+        "params": {},
+        "attributes": []
+      },
+      {
+        "src": "gcd_nangate45.design",
+        "seq": 0,
+        "type": "orfs.DesignConfig",
+        "design_name": "gcd",
+        "design_nickname": "gcd",
+        "clock_period_ps": 1100,
+        "blocks": [],
+        "verilog_defines": [],
+        "synth_hierarchical": false,
+        "num_cores": 0,
+        "verilog_files": [
+          "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/src/gcd.v"
+        ],
+        "sdc_file": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/src/constraint.sdc"
+      },
+      {
+        "type": "std.FileSet",
+        "filetype": "orfsODB",
+        "basedir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/rundir/gcd_nangate45.synth/results",
+        "name": "",
+        "src": "gcd_nangate45.synth",
+        "seq": 0,
+        "files": [
+          "1_synth.odb"
+        ],
+        "incdirs": [],
+        "defines": [],
+        "params": {},
+        "attributes": []
+      }
+    ],
+    "memento": null
+  },
+  "needs": [
+    "gcd_nangate45.pdk",
+    "gcd_nangate45.design",
+    "gcd_nangate45.synth"
+  ],
+  "commands": [
+    {
+      "cmd": [
+        "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/openroad-bin/bin/openroad.sh",
+        "-no_splash",
+        "-exit",
+        "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/src/dv_flow/liborfs/share/scripts/floorplan.tcl",
+        "-metrics",
+        "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/rundir/gcd_nangate45.floorplan/logs/2_1_floorplan.json"
+      ],
+      "status": 0
+    },
+    {
+      "cmd": [
+        "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/openroad-bin/bin/openroad.sh",
+        "-no_splash",
+        "-exit",
+        "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/src/dv_flow/liborfs/share/scripts/macro_place.tcl",
+        "-metrics",
+        "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/rundir/gcd_nangate45.floorplan/logs/2_2_floorplan_macro.json"
+      ],
+      "status": 0
+    },
+    {
+      "cmd": [
+        "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/openroad-bin/bin/openroad.sh",
+        "-no_splash",
+        "-exit",
+        "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/src/dv_flow/liborfs/share/scripts/tapcell.tcl",
+        "-metrics",
+        "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/rundir/gcd_nangate45.floorplan/logs/2_3_floorplan_tapcell.json"
+      ],
+      "status": 0
+    },
+    {
+      "cmd": [
+        "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/openroad-bin/bin/openroad.sh",
+        "-no_splash",
+        "-exit",
+        "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/src/dv_flow/liborfs/share/scripts/pdn.tcl",
+        "-metrics",
+        "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/rundir/gcd_nangate45.floorplan/logs/2_4_floorplan_pdn.json"
+      ],
+      "status": 0
+    }
+  ],
+  "result": {
+    "status": 0,
+    "changed": true,
+    "memento": null
+  },
+  "output": {
+    "changed": true,
+    "output": [
+      {
+        "type": "std.FileSet",
+        "filetype": "orfsODB",
+        "basedir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/rundir/gcd_nangate45.floorplan/results",
+        "name": "",
+        "src": "gcd_nangate45.floorplan",
+        "seq": 0,
+        "files": [
+          "2_floorplan.odb"
+        ],
+        "incdirs": [],
+        "defines": [],
+        "params": {},
+        "attributes": []
+      }
+    ],
+    "dep_m": {
+      "gcd_nangate45.floorplan": [
+        "gcd_nangate45.pdk",
+        "gcd_nangate45.design",
+        "gcd_nangate45.synth"
+      ]
+    }
+  },
+  "consumes": [
+    {
+      "filetype": "orfsOpenRoadPlatform"
+    },
+    {
+      "type": "orfs.DesignConfig"
+    },
+    {
+      "filetype": "orfsODB"
+    }
+  ],
+  "passthrough": "PassthroughE.Unused",
+  "produces": null
+}

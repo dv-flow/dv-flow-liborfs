@@ -1,0 +1,47 @@
+{
+  "name": "gcd_nangate45.pdk",
+  "srcdir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45",
+  "rundir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/rundir/gcd_nangate45.pdk",
+  "params": {},
+  "inputs_signature": [],
+  "input": {
+    "name": "gcd_nangate45.pdk",
+    "changed": false,
+    "srcdir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45",
+    "rundir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/rundir/gcd_nangate45.pdk",
+    "params": {},
+    "inputs": [],
+    "memento": null
+  },
+  "needs": [],
+  "commands": [],
+  "result": {
+    "status": 0,
+    "changed": false,
+    "memento": null
+  },
+  "output": {
+    "changed": false,
+    "output": [
+      {
+        "type": "std.FileSet",
+        "filetype": "orfsOpenRoadPlatform",
+        "basedir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs-nangate45/src/dv_flow/liborfs_nangate45/share/nangate45",
+        "name": "",
+        "src": "gcd_nangate45.pdk",
+        "seq": 0,
+        "files": [],
+        "incdirs": [],
+        "defines": [],
+        "params": {},
+        "attributes": []
+      }
+    ],
+    "dep_m": {
+      "gcd_nangate45.pdk": []
+    }
+  },
+  "consumes": "ConsumesE.All",
+  "passthrough": "PassthroughE.Unused",
+  "produces": null
+}

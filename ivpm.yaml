@@ -1,0 +1,26 @@
+package:
+  name: dv-flow-liborfs
+
+  dep-sets:
+  - name: default-dev
+    deps:
+    - name: dv-flow-mgr
+      url: https://github.com/dv-flow/dv-flow-mgr.git
+
+    - name: OpenROAD-flow-scripts
+      url: https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts.git
+      anonymous: true
+      cache: true
+
+    - name: openroad-bin
+      url: https://github.com/EDAPack/openroad-bin
+      src: gh-rls
+      cache: true
+      prerelease: true
+
+    - name: Sphinx
+      src: pypi
+    - name: sphinx-mdinclude
+      src: pypi
+    - name: alabaster
+      src: pypi

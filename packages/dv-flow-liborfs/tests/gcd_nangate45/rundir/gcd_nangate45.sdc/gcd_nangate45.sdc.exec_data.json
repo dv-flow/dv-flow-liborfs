@@ -1,0 +1,83 @@
+{
+  "name": "gcd_nangate45.sdc",
+  "srcdir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45",
+  "rundir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/rundir/gcd_nangate45.sdc",
+  "params": {
+    "base": "",
+    "type": "sdc",
+    "incdirs": [],
+    "defines": [],
+    "attributes": [],
+    "include": [
+      "src/constraint.sdc"
+    ],
+    "exclude": []
+  },
+  "inputs_signature": [],
+  "input": {
+    "name": "gcd_nangate45.sdc",
+    "changed": false,
+    "srcdir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45",
+    "rundir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/rundir/gcd_nangate45.sdc",
+    "params": {
+      "base": "",
+      "type": "sdc",
+      "incdirs": [],
+      "defines": [],
+      "attributes": [],
+      "include": [
+        "src/constraint.sdc"
+      ],
+      "exclude": []
+    },
+    "inputs": [],
+    "memento": {
+      "files": [
+        [
+          "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/src/constraint.sdc",
+          1771615117.9442801
+        ]
+      ]
+    }
+  },
+  "needs": [],
+  "commands": [],
+  "result": {
+    "status": 0,
+    "changed": false,
+    "memento": {
+      "files": [
+        [
+          "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/src/constraint.sdc",
+          1771615117.9442801
+        ]
+      ]
+    }
+  },
+  "output": {
+    "changed": false,
+    "output": [
+      {
+        "type": "std.FileSet",
+        "filetype": "sdc",
+        "basedir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45",
+        "name": "",
+        "src": "gcd_nangate45.sdc",
+        "seq": 0,
+        "files": [
+          "src/constraint.sdc"
+        ],
+        "incdirs": [],
+        "defines": [],
+        "params": {},
+        "attributes": []
+      }
+    ],
+    "dep_m": {
+      "gcd_nangate45.sdc": []
+    }
+  },
+  "consumes": "ConsumesE.No",
+  "passthrough": "PassthroughE.All",
+  "produces": null
+}

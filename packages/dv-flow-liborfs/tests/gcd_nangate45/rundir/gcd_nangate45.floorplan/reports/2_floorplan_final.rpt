@@ -1,0 +1,199 @@
+
+==========================================================================
+floorplan final report_tns
+--------------------------------------------------------------------------
+tns max -1.43
+
+==========================================================================
+floorplan final report_wns
+--------------------------------------------------------------------------
+wns max -0.08
+
+==========================================================================
+floorplan final report_worst_slack
+--------------------------------------------------------------------------
+worst slack max -0.08
+
+==========================================================================
+floorplan final report_clock_min_period
+--------------------------------------------------------------------------
+core_clock period_min = 0.54 fmax = 1858.33
+
+==========================================================================
+floorplan final report_checks -path_delay min
+--------------------------------------------------------------------------
+Startpoint: reset (input port clocked by core_clock)
+Endpoint: ctrl.state.out[1]$_DFF_P_
+          (rising edge-triggered flip-flop clocked by core_clock)
+Path Group: core_clock
+Path Type: min
+
+Fanout     Cap    Slew   Delay    Time   Description
+-----------------------------------------------------------------------------
+                  0.00    0.00    0.00   clock core_clock (rise edge)
+                          0.00    0.00   clock network delay (ideal)
+                          0.09    0.09 ^ input external delay
+     3    4.90    0.00    0.00    0.09 ^ reset (in)
+                                         reset (net)
+                  0.00    0.00    0.09 ^ _372_/A2 (NOR2_X1)
+     1    1.06    0.00    0.01    0.10 v _372_/ZN (NOR2_X1)
+                                         _001_ (net)
+                  0.00    0.00    0.10 v ctrl.state.out[1]$_DFF_P_/D (DFF_X1)
+                                  0.10   data arrival time
+
+                  0.00    0.00    0.00   clock core_clock (rise edge)
+                          0.00    0.00   clock network delay (ideal)
+                          0.00    0.00   clock reconvergence pessimism
+                                  0.00 ^ ctrl.state.out[1]$_DFF_P_/CK (DFF_X1)
+                          0.00    0.00   library hold time
+                                  0.00   data required time
+-----------------------------------------------------------------------------
+                                  0.00   data required time
+                                 -0.10   data arrival time
+-----------------------------------------------------------------------------
+                                  0.10   slack (MET)
+
+
+
+==========================================================================
+floorplan final report_checks -path_delay max
+--------------------------------------------------------------------------
+Startpoint: dpath.b_reg.out[0]$_DFFE_PP_
+            (rising edge-triggered flip-flop clocked by core_clock)
+Endpoint: dpath.a_reg.out[11]$_DFFE_PP_
+          (rising edge-triggered flip-flop clocked by core_clock)
+Path Group: core_clock
+Path Type: max
+
+Fanout     Cap    Slew   Delay    Time   Description
+-----------------------------------------------------------------------------
+                  0.00    0.00    0.00   clock core_clock (rise edge)
+                          0.00    0.00   clock network delay (ideal)
+                  0.00    0.00    0.00 ^ dpath.b_reg.out[0]$_DFFE_PP_/CK (DFF_X1)
+     4    7.10    0.01    0.09    0.09 v dpath.b_reg.out[0]$_DFFE_PP_/Q (DFF_X1)
+                                         dpath.a_lt_b$in1[0] (net)
+                  0.01    0.00    0.09 v _580_/B (HA_X1)
+     3    5.67    0.01    0.04    0.13 v _580_/CO (HA_X1)
+                                         _004_ (net)
+                  0.01    0.00    0.13 v _564_/CI (FA_X1)
+     2    5.07    0.02    0.08    0.20 v _564_/CO (FA_X1)
+                                         _005_ (net)
+                  0.02    0.00    0.20 v _329_/A (INV_X2)
+     2    8.08    0.01    0.02    0.23 ^ _329_/ZN (INV_X2)
+                                         _091_ (net)
+                  0.01    0.00    0.23 ^ _330_/B1 (AOI21_X4)
+     3   12.85    0.01    0.02    0.24 v _330_/ZN (AOI21_X4)
+                                         _092_ (net)
+                  0.01    0.00    0.24 v _331_/B1 (OAI21_X4)
+     2    6.60    0.02    0.03    0.27 ^ _331_/ZN (OAI21_X4)
+                                         _093_ (net)
+                  0.02    0.00    0.27 ^ _343_/A1 (NAND4_X4)
+     2    9.69    0.02    0.03    0.30 v _343_/ZN (NAND4_X4)
+                                         _105_ (net)
+                  0.02    0.00    0.30 v _395_/A2 (NAND3_X4)
+     8   20.73    0.02    0.03    0.33 ^ _395_/ZN (NAND3_X4)
+                                         _150_ (net)
+                  0.02    0.00    0.33 ^ _420_/S (MUX2_X1)
+     1    1.45    0.01    0.06    0.39 v _420_/Z (MUX2_X1)
+                                         _174_ (net)
+                  0.01    0.00    0.39 v _421_/B2 (AOI222_X1)
+     1    1.65    0.05    0.08    0.47 ^ _421_/ZN (AOI222_X1)
+                                         _175_ (net)
+                  0.05    0.00    0.47 ^ _422_/A3 (NAND3_X1)
+     1    1.06    0.01    0.02    0.50 v _422_/ZN (NAND3_X1)
+                                         _040_ (net)
+                  0.01    0.00    0.50 v dpath.a_reg.out[11]$_DFFE_PP_/D (DFF_X1)
+                                  0.50   data arrival time
+
+                  0.00    0.46    0.46   clock core_clock (rise edge)
+                          0.00    0.46   clock network delay (ideal)
+                          0.00    0.46   clock reconvergence pessimism
+                                  0.46 ^ dpath.a_reg.out[11]$_DFFE_PP_/CK (DFF_X1)
+                         -0.04    0.42   library setup time
+                                  0.42   data required time
+-----------------------------------------------------------------------------
+                                  0.42   data required time
+                                 -0.50   data arrival time
+-----------------------------------------------------------------------------
+                                 -0.08   slack (VIOLATED)
+
+
+
+==========================================================================
+floorplan final report_checks -unconstrained
+--------------------------------------------------------------------------
+Startpoint: dpath.b_reg.out[0]$_DFFE_PP_
+            (rising edge-triggered flip-flop clocked by core_clock)
+Endpoint: dpath.a_reg.out[11]$_DFFE_PP_
+          (rising edge-triggered flip-flop clocked by core_clock)
+Path Group: core_clock
+Path Type: max
+
+Fanout     Cap    Slew   Delay    Time   Description
+-----------------------------------------------------------------------------
+                  0.00    0.00    0.00   clock core_clock (rise edge)
+                          0.00    0.00   clock network delay (ideal)
+                  0.00    0.00    0.00 ^ dpath.b_reg.out[0]$_DFFE_PP_/CK (DFF_X1)
+     4    7.10    0.01    0.09    0.09 v dpath.b_reg.out[0]$_DFFE_PP_/Q (DFF_X1)
+                                         dpath.a_lt_b$in1[0] (net)
+                  0.01    0.00    0.09 v _580_/B (HA_X1)
+     3    5.67    0.01    0.04    0.13 v _580_/CO (HA_X1)
+                                         _004_ (net)
+                  0.01    0.00    0.13 v _564_/CI (FA_X1)
+     2    5.07    0.02    0.08    0.20 v _564_/CO (FA_X1)
+                                         _005_ (net)
+                  0.02    0.00    0.20 v _329_/A (INV_X2)
+     2    8.08    0.01    0.02    0.23 ^ _329_/ZN (INV_X2)
+                                         _091_ (net)
+                  0.01    0.00    0.23 ^ _330_/B1 (AOI21_X4)
+     3   12.85    0.01    0.02    0.24 v _330_/ZN (AOI21_X4)
+                                         _092_ (net)
+                  0.01    0.00    0.24 v _331_/B1 (OAI21_X4)
+     2    6.60    0.02    0.03    0.27 ^ _331_/ZN (OAI21_X4)
+                                         _093_ (net)
+                  0.02    0.00    0.27 ^ _343_/A1 (NAND4_X4)
+     2    9.69    0.02    0.03    0.30 v _343_/ZN (NAND4_X4)
+                                         _105_ (net)
+                  0.02    0.00    0.30 v _395_/A2 (NAND3_X4)
+     8   20.73    0.02    0.03    0.33 ^ _395_/ZN (NAND3_X4)
+                                         _150_ (net)
+                  0.02    0.00    0.33 ^ _420_/S (MUX2_X1)
+     1    1.45    0.01    0.06    0.39 v _420_/Z (MUX2_X1)
+                                         _174_ (net)
+                  0.01    0.00    0.39 v _421_/B2 (AOI222_X1)
+     1    1.65    0.05    0.08    0.47 ^ _421_/ZN (AOI222_X1)
+                                         _175_ (net)
+                  0.05    0.00    0.47 ^ _422_/A3 (NAND3_X1)
+     1    1.06    0.01    0.02    0.50 v _422_/ZN (NAND3_X1)
+                                         _040_ (net)
+                  0.01    0.00    0.50 v dpath.a_reg.out[11]$_DFFE_PP_/D (DFF_X1)
+                                  0.50   data arrival time
+
+                  0.00    0.46    0.46   clock core_clock (rise edge)
+                          0.00    0.46   clock network delay (ideal)
+                          0.00    0.46   clock reconvergence pessimism
+                                  0.46 ^ dpath.a_reg.out[11]$_DFFE_PP_/CK (DFF_X1)
+                         -0.04    0.42   library setup time
+                                  0.42   data required time
+-----------------------------------------------------------------------------
+                                  0.42   data required time
+                                 -0.50   data arrival time
+-----------------------------------------------------------------------------
+                                 -0.08   slack (VIOLATED)
+
+
+
+==========================================================================
+floorplan final report_power
+--------------------------------------------------------------------------
+Group                  Internal  Switching    Leakage      Total
+                          Power      Power      Power      Power (Watts)
+----------------------------------------------------------------
+Sequential             4.83e-04   8.94e-05   2.77e-06   5.75e-04  27.0%
+Combinational          8.80e-04   6.63e-04   1.04e-05   1.55e-03  73.0%
+Clock                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Macro                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Pad                    0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+----------------------------------------------------------------
+Total                  1.36e-03   7.52e-04   1.32e-05   2.13e-03 100.0%
+                          64.0%      35.3%       0.6%

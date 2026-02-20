@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://dv-flow.github.io/flow.dv.schema.json
+#****************************************************************************
+#* flow.dv — nangate45 PDK platform for dv-flow-liborfs
+#****************************************************************************
+
+package:
+  name: orfs.nangate45
+  desc: nangate45 open-source PDK platform for dv-flow-liborfs
+
+  imports:
+  - name: orfs
+
+  tasks:
+  - export: Platform
+    desc: nangate45 PDK platform files
+    doc: |
+      Emits an orfsOpenRoadPlatform FileSet pointing to the bundled nangate45
+      platform directory. Use as a dependency for any orfs stage task.
+
+      Example:
+        - name: pdk
+          uses: orfs.nangate45.Platform
+
+        - name: synth
+          uses: orfs.Synth
+          needs: [pdk, design]
+    pytask: dv_flow.liborfs_nangate45.platform.Platform
+    with: {}

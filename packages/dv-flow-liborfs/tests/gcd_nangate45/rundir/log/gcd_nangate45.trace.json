@@ -1,0 +1,1228 @@
+{
+  "traceEvents": [
+    {
+      "name": "metadata",
+      "ph": "M",
+      "pid": 1,
+      "tid": 0,
+      "args": {
+        "name": "Task Execution",
+        "timeUnit": "us"
+      }
+    },
+    {
+      "name": "gcd_nangate45.pdk",
+      "cat": "task",
+      "ph": "B",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528556855,
+      "args": {
+        "params": {}
+      }
+    },
+    {
+      "name": "gcd_nangate45.pdk",
+      "cat": "task",
+      "ph": "E",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528557034,
+      "args": {
+        "status": 0,
+        "changed": false
+      }
+    },
+    {
+      "name": "gcd_nangate45.rtl",
+      "cat": "task",
+      "ph": "B",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528557061,
+      "args": {
+        "params": {
+          "base": "",
+          "type": "verilogSource",
+          "incdirs": [],
+          "defines": [],
+          "attributes": [],
+          "include": [
+            "src/gcd.v"
+          ],
+          "exclude": []
+        }
+      }
+    },
+    {
+      "name": "gcd_nangate45.rtl",
+      "cat": "task",
+      "ph": "E",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528558577,
+      "args": {
+        "status": 0,
+        "changed": false,
+        "output": [
+          {
+            "type": "std.FileSet",
+            "filetype": "verilogSource",
+            "basedir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45",
+            "name": "",
+            "src": "gcd_nangate45.rtl",
+            "seq": 0,
+            "files": [
+              "src/gcd.v"
+            ],
+            "incdirs": [],
+            "defines": [],
+            "params": {},
+            "attributes": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "gcd_nangate45.sdc",
+      "cat": "task",
+      "ph": "B",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528558604,
+      "args": {
+        "params": {
+          "base": "",
+          "type": "sdc",
+          "incdirs": [],
+          "defines": [],
+          "attributes": [],
+          "include": [
+            "src/constraint.sdc"
+          ],
+          "exclude": []
+        }
+      }
+    },
+    {
+      "name": "gcd_nangate45.sdc",
+      "cat": "task",
+      "ph": "E",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528559020,
+      "args": {
+        "status": 0,
+        "changed": false,
+        "output": [
+          {
+            "type": "std.FileSet",
+            "filetype": "sdc",
+            "basedir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45",
+            "name": "",
+            "src": "gcd_nangate45.sdc",
+            "seq": 0,
+            "files": [
+              "src/constraint.sdc"
+            ],
+            "incdirs": [],
+            "defines": [],
+            "params": {},
+            "attributes": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "gcd_nangate45.design",
+      "cat": "task",
+      "ph": "B",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528559057,
+      "args": {
+        "params": {
+          "design_name": "gcd",
+          "design_nickname": "",
+          "clock_period_ps": 1100,
+          "blocks": [],
+          "verilog_defines": [],
+          "synth_hierarchical": false,
+          "num_cores": 0
+        },
+        "inputs": [
+          {
+            "task": "gcd_nangate45.rtl",
+            "data": [
+              {
+                "type": "std.FileSet",
+                "filetype": "verilogSource",
+                "basedir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45",
+                "name": "",
+                "src": "gcd_nangate45.rtl",
+                "seq": 0,
+                "files": [
+                  "src/gcd.v"
+                ],
+                "incdirs": [],
+                "defines": [],
+                "params": {},
+                "attributes": []
+              }
+            ]
+          },
+          {
+            "task": "gcd_nangate45.sdc",
+            "data": [
+              {
+                "type": "std.FileSet",
+                "filetype": "sdc",
+                "basedir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45",
+                "name": "",
+                "src": "gcd_nangate45.sdc",
+                "seq": 0,
+                "files": [
+                  "src/constraint.sdc"
+                ],
+                "incdirs": [],
+                "defines": [],
+                "params": {},
+                "attributes": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "gcd_nangate45.rtl -> gcd_nangate45.design",
+      "cat": "flow",
+      "ph": "s",
+      "pid": 1,
+      "tid": 0,
+      "ts": 1771618528558577,
+      "id": 1,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.rtl -> gcd_nangate45.design",
+      "cat": "flow",
+      "ph": "f",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528559057,
+      "id": 1,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.sdc -> gcd_nangate45.design",
+      "cat": "flow",
+      "ph": "s",
+      "pid": 1,
+      "tid": 0,
+      "ts": 1771618528559020,
+      "id": 2,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.sdc -> gcd_nangate45.design",
+      "cat": "flow",
+      "ph": "f",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528559057,
+      "id": 2,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.design",
+      "cat": "task",
+      "ph": "E",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528559230,
+      "args": {
+        "status": 0,
+        "changed": false
+      }
+    },
+    {
+      "name": "gcd_nangate45.synth",
+      "cat": "task",
+      "ph": "B",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528559259,
+      "args": {
+        "params": {
+          "flow_home": "",
+          "synth_args": "",
+          "synth_gut": false,
+          "synth_memory_max_bits": 4096
+        },
+        "inputs": [
+          {
+            "task": "gcd_nangate45.pdk",
+            "data": [
+              {
+                "src": "gcd_nangate45.pdk",
+                "seq": 0,
+                "type": "std.FileSet",
+                "filetype": "orfsOpenRoadPlatform",
+                "basedir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs-nangate45/src/dv_flow/liborfs_nangate45/share/nangate45",
+                "files": [],
+                "incdirs": [],
+                "defines": [],
+                "attributes": []
+              }
+            ]
+          },
+          {
+            "task": "gcd_nangate45.design",
+            "data": [
+              {
+                "src": "gcd_nangate45.design",
+                "seq": 0,
+                "type": "orfs.DesignConfig",
+                "design_name": "gcd",
+                "design_nickname": "gcd",
+                "clock_period_ps": 1100,
+                "blocks": [],
+                "verilog_defines": [],
+                "synth_hierarchical": false,
+                "num_cores": 0,
+                "verilog_files": [
+                  "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/src/gcd.v"
+                ],
+                "sdc_file": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/src/constraint.sdc"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "gcd_nangate45.pdk -> gcd_nangate45.synth",
+      "cat": "flow",
+      "ph": "s",
+      "pid": 1,
+      "tid": 0,
+      "ts": 1771618528557034,
+      "id": 3,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.pdk -> gcd_nangate45.synth",
+      "cat": "flow",
+      "ph": "f",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528559259,
+      "id": 3,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.design -> gcd_nangate45.synth",
+      "cat": "flow",
+      "ph": "s",
+      "pid": 1,
+      "tid": 0,
+      "ts": 1771618528559230,
+      "id": 4,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.design -> gcd_nangate45.synth",
+      "cat": "flow",
+      "ph": "f",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528559259,
+      "id": 4,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.synth",
+      "cat": "task",
+      "ph": "E",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528559435,
+      "args": {
+        "status": 0,
+        "changed": false
+      }
+    },
+    {
+      "name": "gcd_nangate45.floorplan",
+      "cat": "task",
+      "ph": "B",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528559461,
+      "args": {
+        "params": {
+          "flow_home": "",
+          "core_utilization": 45,
+          "core_aspect_ratio": "",
+          "core_margin": "",
+          "die_area": "",
+          "core_area": "",
+          "pdn_tcl": ""
+        },
+        "inputs": [
+          {
+            "task": "gcd_nangate45.pdk",
+            "data": [
+              {
+                "src": "gcd_nangate45.pdk",
+                "seq": 0,
+                "type": "std.FileSet",
+                "filetype": "orfsOpenRoadPlatform",
+                "basedir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs-nangate45/src/dv_flow/liborfs_nangate45/share/nangate45",
+                "files": [],
+                "incdirs": [],
+                "defines": [],
+                "attributes": []
+              }
+            ]
+          },
+          {
+            "task": "gcd_nangate45.design",
+            "data": [
+              {
+                "src": "gcd_nangate45.design",
+                "seq": 0,
+                "type": "orfs.DesignConfig",
+                "design_name": "gcd",
+                "design_nickname": "gcd",
+                "clock_period_ps": 1100,
+                "blocks": [],
+                "verilog_defines": [],
+                "synth_hierarchical": false,
+                "num_cores": 0,
+                "verilog_files": [
+                  "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/src/gcd.v"
+                ],
+                "sdc_file": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/src/constraint.sdc"
+              }
+            ]
+          },
+          {
+            "task": "gcd_nangate45.synth",
+            "data": [
+              {
+                "src": "gcd_nangate45.synth",
+                "seq": 0,
+                "type": "std.FileSet",
+                "filetype": "orfsODB",
+                "basedir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/rundir/gcd_nangate45.synth/results",
+                "files": [
+                  "1_synth.odb"
+                ],
+                "incdirs": [],
+                "defines": [],
+                "attributes": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "gcd_nangate45.pdk -> gcd_nangate45.floorplan",
+      "cat": "flow",
+      "ph": "s",
+      "pid": 1,
+      "tid": 0,
+      "ts": 1771618528557034,
+      "id": 5,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.pdk -> gcd_nangate45.floorplan",
+      "cat": "flow",
+      "ph": "f",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528559461,
+      "id": 5,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.design -> gcd_nangate45.floorplan",
+      "cat": "flow",
+      "ph": "s",
+      "pid": 1,
+      "tid": 0,
+      "ts": 1771618528559230,
+      "id": 6,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.design -> gcd_nangate45.floorplan",
+      "cat": "flow",
+      "ph": "f",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528559461,
+      "id": 6,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.synth -> gcd_nangate45.floorplan",
+      "cat": "flow",
+      "ph": "s",
+      "pid": 1,
+      "tid": 0,
+      "ts": 1771618528559435,
+      "id": 7,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.synth -> gcd_nangate45.floorplan",
+      "cat": "flow",
+      "ph": "f",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528559461,
+      "id": 7,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.floorplan",
+      "cat": "task",
+      "ph": "E",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528559636,
+      "args": {
+        "status": 0,
+        "changed": false
+      }
+    },
+    {
+      "name": "gcd_nangate45.place",
+      "cat": "task",
+      "ph": "B",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528559659,
+      "args": {
+        "params": {
+          "flow_home": "",
+          "place_density": "",
+          "place_density_lb_addon": "",
+          "global_placement_args": ""
+        },
+        "inputs": [
+          {
+            "task": "gcd_nangate45.pdk",
+            "data": [
+              {
+                "src": "gcd_nangate45.pdk",
+                "seq": 0,
+                "type": "std.FileSet",
+                "filetype": "orfsOpenRoadPlatform",
+                "basedir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs-nangate45/src/dv_flow/liborfs_nangate45/share/nangate45",
+                "files": [],
+                "incdirs": [],
+                "defines": [],
+                "attributes": []
+              }
+            ]
+          },
+          {
+            "task": "gcd_nangate45.design",
+            "data": [
+              {
+                "src": "gcd_nangate45.design",
+                "seq": 0,
+                "type": "orfs.DesignConfig",
+                "design_name": "gcd",
+                "design_nickname": "gcd",
+                "clock_period_ps": 1100,
+                "blocks": [],
+                "verilog_defines": [],
+                "synth_hierarchical": false,
+                "num_cores": 0,
+                "verilog_files": [
+                  "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/src/gcd.v"
+                ],
+                "sdc_file": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/src/constraint.sdc"
+              }
+            ]
+          },
+          {
+            "task": "gcd_nangate45.floorplan",
+            "data": [
+              {
+                "src": "gcd_nangate45.floorplan",
+                "seq": 0,
+                "type": "std.FileSet",
+                "filetype": "orfsODB",
+                "basedir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/rundir/gcd_nangate45.floorplan/results",
+                "files": [
+                  "2_floorplan.odb"
+                ],
+                "incdirs": [],
+                "defines": [],
+                "attributes": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "gcd_nangate45.pdk -> gcd_nangate45.place",
+      "cat": "flow",
+      "ph": "s",
+      "pid": 1,
+      "tid": 0,
+      "ts": 1771618528557034,
+      "id": 8,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.pdk -> gcd_nangate45.place",
+      "cat": "flow",
+      "ph": "f",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528559659,
+      "id": 8,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.design -> gcd_nangate45.place",
+      "cat": "flow",
+      "ph": "s",
+      "pid": 1,
+      "tid": 0,
+      "ts": 1771618528559230,
+      "id": 9,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.design -> gcd_nangate45.place",
+      "cat": "flow",
+      "ph": "f",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528559659,
+      "id": 9,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.floorplan -> gcd_nangate45.place",
+      "cat": "flow",
+      "ph": "s",
+      "pid": 1,
+      "tid": 0,
+      "ts": 1771618528559636,
+      "id": 10,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.floorplan -> gcd_nangate45.place",
+      "cat": "flow",
+      "ph": "f",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528559659,
+      "id": 10,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.place",
+      "cat": "task",
+      "ph": "E",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528559820,
+      "args": {
+        "status": 0,
+        "changed": false
+      }
+    },
+    {
+      "name": "gcd_nangate45.cts",
+      "cat": "task",
+      "ph": "B",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528559842,
+      "args": {
+        "params": {
+          "flow_home": "",
+          "cts_cluster_size": 0,
+          "cts_cluster_diameter": 0,
+          "cts_buf_distance": 0,
+          "cts_args": ""
+        },
+        "inputs": [
+          {
+            "task": "gcd_nangate45.pdk",
+            "data": [
+              {
+                "src": "gcd_nangate45.pdk",
+                "seq": 0,
+                "type": "std.FileSet",
+                "filetype": "orfsOpenRoadPlatform",
+                "basedir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs-nangate45/src/dv_flow/liborfs_nangate45/share/nangate45",
+                "files": [],
+                "incdirs": [],
+                "defines": [],
+                "attributes": []
+              }
+            ]
+          },
+          {
+            "task": "gcd_nangate45.design",
+            "data": [
+              {
+                "src": "gcd_nangate45.design",
+                "seq": 0,
+                "type": "orfs.DesignConfig",
+                "design_name": "gcd",
+                "design_nickname": "gcd",
+                "clock_period_ps": 1100,
+                "blocks": [],
+                "verilog_defines": [],
+                "synth_hierarchical": false,
+                "num_cores": 0,
+                "verilog_files": [
+                  "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/src/gcd.v"
+                ],
+                "sdc_file": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/src/constraint.sdc"
+              }
+            ]
+          },
+          {
+            "task": "gcd_nangate45.place",
+            "data": [
+              {
+                "src": "gcd_nangate45.place",
+                "seq": 0,
+                "type": "std.FileSet",
+                "filetype": "orfsODB",
+                "basedir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/rundir/gcd_nangate45.place/results",
+                "files": [
+                  "3_place.odb"
+                ],
+                "incdirs": [],
+                "defines": [],
+                "attributes": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "gcd_nangate45.pdk -> gcd_nangate45.cts",
+      "cat": "flow",
+      "ph": "s",
+      "pid": 1,
+      "tid": 0,
+      "ts": 1771618528557034,
+      "id": 11,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.pdk -> gcd_nangate45.cts",
+      "cat": "flow",
+      "ph": "f",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528559842,
+      "id": 11,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.design -> gcd_nangate45.cts",
+      "cat": "flow",
+      "ph": "s",
+      "pid": 1,
+      "tid": 0,
+      "ts": 1771618528559230,
+      "id": 12,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.design -> gcd_nangate45.cts",
+      "cat": "flow",
+      "ph": "f",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528559842,
+      "id": 12,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.place -> gcd_nangate45.cts",
+      "cat": "flow",
+      "ph": "s",
+      "pid": 1,
+      "tid": 0,
+      "ts": 1771618528559820,
+      "id": 13,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.place -> gcd_nangate45.cts",
+      "cat": "flow",
+      "ph": "f",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528559842,
+      "id": 13,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.cts",
+      "cat": "task",
+      "ph": "E",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528559997,
+      "args": {
+        "status": 0,
+        "changed": false
+      }
+    },
+    {
+      "name": "gcd_nangate45.grt",
+      "cat": "task",
+      "ph": "B",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528560019,
+      "args": {
+        "params": {
+          "flow_home": "",
+          "routing_layer_adjustment": "",
+          "tns_end_percent": 100,
+          "min_routing_layer": "",
+          "max_routing_layer": ""
+        },
+        "inputs": [
+          {
+            "task": "gcd_nangate45.pdk",
+            "data": [
+              {
+                "src": "gcd_nangate45.pdk",
+                "seq": 0,
+                "type": "std.FileSet",
+                "filetype": "orfsOpenRoadPlatform",
+                "basedir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs-nangate45/src/dv_flow/liborfs_nangate45/share/nangate45",
+                "files": [],
+                "incdirs": [],
+                "defines": [],
+                "attributes": []
+              }
+            ]
+          },
+          {
+            "task": "gcd_nangate45.design",
+            "data": [
+              {
+                "src": "gcd_nangate45.design",
+                "seq": 0,
+                "type": "orfs.DesignConfig",
+                "design_name": "gcd",
+                "design_nickname": "gcd",
+                "clock_period_ps": 1100,
+                "blocks": [],
+                "verilog_defines": [],
+                "synth_hierarchical": false,
+                "num_cores": 0,
+                "verilog_files": [
+                  "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/src/gcd.v"
+                ],
+                "sdc_file": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/src/constraint.sdc"
+              }
+            ]
+          },
+          {
+            "task": "gcd_nangate45.cts",
+            "data": [
+              {
+                "src": "gcd_nangate45.cts",
+                "seq": 0,
+                "type": "std.FileSet",
+                "filetype": "orfsODB",
+                "basedir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/rundir/gcd_nangate45.cts/results",
+                "files": [
+                  "4_cts.odb"
+                ],
+                "incdirs": [],
+                "defines": [],
+                "attributes": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "gcd_nangate45.pdk -> gcd_nangate45.grt",
+      "cat": "flow",
+      "ph": "s",
+      "pid": 1,
+      "tid": 0,
+      "ts": 1771618528557034,
+      "id": 14,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.pdk -> gcd_nangate45.grt",
+      "cat": "flow",
+      "ph": "f",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528560019,
+      "id": 14,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.design -> gcd_nangate45.grt",
+      "cat": "flow",
+      "ph": "s",
+      "pid": 1,
+      "tid": 0,
+      "ts": 1771618528559230,
+      "id": 15,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.design -> gcd_nangate45.grt",
+      "cat": "flow",
+      "ph": "f",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528560019,
+      "id": 15,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.cts -> gcd_nangate45.grt",
+      "cat": "flow",
+      "ph": "s",
+      "pid": 1,
+      "tid": 0,
+      "ts": 1771618528559997,
+      "id": 16,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.cts -> gcd_nangate45.grt",
+      "cat": "flow",
+      "ph": "f",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528560019,
+      "id": 16,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.grt",
+      "cat": "task",
+      "ph": "E",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528560175,
+      "args": {
+        "status": 0,
+        "changed": false
+      }
+    },
+    {
+      "name": "gcd_nangate45.route",
+      "cat": "task",
+      "ph": "B",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528560197,
+      "args": {
+        "params": {
+          "flow_home": "",
+          "detailed_route_args": ""
+        },
+        "inputs": [
+          {
+            "task": "gcd_nangate45.pdk",
+            "data": [
+              {
+                "src": "gcd_nangate45.pdk",
+                "seq": 0,
+                "type": "std.FileSet",
+                "filetype": "orfsOpenRoadPlatform",
+                "basedir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs-nangate45/src/dv_flow/liborfs_nangate45/share/nangate45",
+                "files": [],
+                "incdirs": [],
+                "defines": [],
+                "attributes": []
+              }
+            ]
+          },
+          {
+            "task": "gcd_nangate45.design",
+            "data": [
+              {
+                "src": "gcd_nangate45.design",
+                "seq": 0,
+                "type": "orfs.DesignConfig",
+                "design_name": "gcd",
+                "design_nickname": "gcd",
+                "clock_period_ps": 1100,
+                "blocks": [],
+                "verilog_defines": [],
+                "synth_hierarchical": false,
+                "num_cores": 0,
+                "verilog_files": [
+                  "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/src/gcd.v"
+                ],
+                "sdc_file": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/src/constraint.sdc"
+              }
+            ]
+          },
+          {
+            "task": "gcd_nangate45.grt",
+            "data": [
+              {
+                "src": "gcd_nangate45.grt",
+                "seq": 0,
+                "type": "std.FileSet",
+                "filetype": "orfsODB",
+                "basedir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/rundir/gcd_nangate45.grt/results",
+                "files": [
+                  "5_1_grt.odb"
+                ],
+                "incdirs": [],
+                "defines": [],
+                "attributes": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "gcd_nangate45.pdk -> gcd_nangate45.route",
+      "cat": "flow",
+      "ph": "s",
+      "pid": 1,
+      "tid": 0,
+      "ts": 1771618528557034,
+      "id": 17,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.pdk -> gcd_nangate45.route",
+      "cat": "flow",
+      "ph": "f",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528560197,
+      "id": 17,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.design -> gcd_nangate45.route",
+      "cat": "flow",
+      "ph": "s",
+      "pid": 1,
+      "tid": 0,
+      "ts": 1771618528559230,
+      "id": 18,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.design -> gcd_nangate45.route",
+      "cat": "flow",
+      "ph": "f",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528560197,
+      "id": 18,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.grt -> gcd_nangate45.route",
+      "cat": "flow",
+      "ph": "s",
+      "pid": 1,
+      "tid": 0,
+      "ts": 1771618528560175,
+      "id": 19,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.grt -> gcd_nangate45.route",
+      "cat": "flow",
+      "ph": "f",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528560197,
+      "id": 19,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.route",
+      "cat": "task",
+      "ph": "E",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528560345,
+      "args": {
+        "status": 0,
+        "changed": false
+      }
+    },
+    {
+      "name": "gcd_nangate45.finish",
+      "cat": "task",
+      "ph": "B",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528560371,
+      "args": {
+        "params": {
+          "flow_home": ""
+        },
+        "inputs": [
+          {
+            "task": "gcd_nangate45.pdk",
+            "data": [
+              {
+                "src": "gcd_nangate45.pdk",
+                "seq": 0,
+                "type": "std.FileSet",
+                "filetype": "orfsOpenRoadPlatform",
+                "basedir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs-nangate45/src/dv_flow/liborfs_nangate45/share/nangate45",
+                "files": [],
+                "incdirs": [],
+                "defines": [],
+                "attributes": []
+              }
+            ]
+          },
+          {
+            "task": "gcd_nangate45.design",
+            "data": [
+              {
+                "src": "gcd_nangate45.design",
+                "seq": 0,
+                "type": "orfs.DesignConfig",
+                "design_name": "gcd",
+                "design_nickname": "gcd",
+                "clock_period_ps": 1100,
+                "blocks": [],
+                "verilog_defines": [],
+                "synth_hierarchical": false,
+                "num_cores": 0,
+                "verilog_files": [
+                  "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/src/gcd.v"
+                ],
+                "sdc_file": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/src/constraint.sdc"
+              }
+            ]
+          },
+          {
+            "task": "gcd_nangate45.route",
+            "data": [
+              {
+                "src": "gcd_nangate45.route",
+                "seq": 0,
+                "type": "std.FileSet",
+                "filetype": "orfsODB",
+                "basedir": "/home/mballance/projects/dv-flow/dv-flow-liborfs/packages/dv-flow-liborfs/tests/gcd_nangate45/rundir/gcd_nangate45.route/results",
+                "files": [
+                  "5_route.odb"
+                ],
+                "incdirs": [],
+                "defines": [],
+                "attributes": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "gcd_nangate45.pdk -> gcd_nangate45.finish",
+      "cat": "flow",
+      "ph": "s",
+      "pid": 1,
+      "tid": 0,
+      "ts": 1771618528557034,
+      "id": 20,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.pdk -> gcd_nangate45.finish",
+      "cat": "flow",
+      "ph": "f",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528560371,
+      "id": 20,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.design -> gcd_nangate45.finish",
+      "cat": "flow",
+      "ph": "s",
+      "pid": 1,
+      "tid": 0,
+      "ts": 1771618528559230,
+      "id": 21,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.design -> gcd_nangate45.finish",
+      "cat": "flow",
+      "ph": "f",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528560371,
+      "id": 21,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.route -> gcd_nangate45.finish",
+      "cat": "flow",
+      "ph": "s",
+      "pid": 1,
+      "tid": 0,
+      "ts": 1771618528560345,
+      "id": 22,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.route -> gcd_nangate45.finish",
+      "cat": "flow",
+      "ph": "f",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528560371,
+      "id": 22,
+      "bp": "e"
+    },
+    {
+      "name": "gcd_nangate45.finish",
+      "cat": "task",
+      "ph": "E",
+      "pid": 1,
+      "tid": 1,
+      "ts": 1771618528560547,
+      "args": {
+        "status": 0,
+        "changed": false
+      }
+    }
+  ],
+  "displayTimeUnit": "ms"
+}
