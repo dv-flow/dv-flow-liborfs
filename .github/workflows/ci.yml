@@ -6,12 +6,75 @@ on:
 
 jobs:
   ci:
-    uses: dv-flow/dv-flow-release/.github/workflows/dv-flow-pybuild.yml@main
-    with:
-        working_directory: "packages/dv-flow-liborfs"
-        version_dir: "src/dv_flow/liborfs"
-        tests_dir: "tests"
-        build_docs: true
-        pythonpath: "$(pwd)/src"
-    secrets:
-        PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v4
+
+    - name: Fetch dependencies
+      shell: bash
+      run: |
+        python3 -m venv py
+        ./py/bin/pip install --upgrade --pre ivpm
+        ./py/bin/ivpm update -a -d default-dev
+        ./packages/python/bin/pip install -U typing_extensions build
+
+    - name: Install packages
+      shell: bash
+      run: |
+        ./packages/python/bin/pip install -e packages/dv-flow-liborfs-nangate45
+        ./packages/python/bin/pip install -e packages/dv-flow-liborfs
+
+    - name: Update Version
+      shell: bash
+      working-directory: packages/dv-flow-liborfs
+      run: |
+        tag=$(git tag -l --contains HEAD)
+        echo "tag: ${tag}"
+        version=$(grep -w version pyproject.toml | sed -e 's%^.*=.*"\([^"][^"]*\)".*$%\1%')
+        if test -z ${tag}; then
+            suffix="${{ github.run_id }}"
+        else
+            suffix=""
+        fi
+        sed -i -e "s%SUFFIX=\".*\"%SUFFIX=\"${suffix}\"%g" \
+               -e "s%VERSION=\".*\"%VERSION=\"${version}\"%g" \
+             src/dv_flow/liborfs/__init__.py
+        sed -i -e "s%version.*=.*\".*\"%version = \"${version}${suffix}\"%g" \
+               pyproject.toml
+
+    - name: Run tests
+      shell: bash
+      working-directory: packages/dv-flow-liborfs
+      run: |
+        export PYTHONPATH=$(pwd)/src:$PYTHONPATH
+        ../../packages/python/bin/python -m build -n .
+        ../../packages/python/bin/pytest tests
+
+    - name: Build packages
+      shell: bash
+      working-directory: packages/dv-flow-liborfs
+      run: |
+        ../../packages/python/bin/python -m build .
+
+    - name: Build Docs
+      shell: bash
+      working-directory: packages/dv-flow-liborfs/docs
+      run: |
+        make html
+        touch _build/html/.nojekyll
+
+    - name: Publish Docs
+      uses: JamesIves/github-pages-deploy-action@4.1.7
+      with:
+        branch: gh-pages
+        folder: packages/dv-flow-liborfs/docs/_build/html
+
+    - name: Publish to PyPi
+      if: ${{ startsWith(github.ref, 'refs/heads/main') || startsWith(github.ref, 'refs/tags/v') }}
+      env:
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+      run: |
+        ./py/bin/python3 -m pip install -U twine packaging
+        ./py/bin/python3 -m twine upload packages/dv-flow-liborfs/dist/*.whl
