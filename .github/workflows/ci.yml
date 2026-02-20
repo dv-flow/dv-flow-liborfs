@@ -22,8 +22,8 @@ jobs:
     - name: Install packages
       shell: bash
       run: |
-        ./packages/python/bin/pip install -e packages/dv-flow-liborfs-nangate45
         ./packages/python/bin/pip install -e packages/dv-flow-liborfs
+        ./packages/python/bin/pip install -e packages/dv-flow-liborfs-nangate45
 
     - name: Update Version
       shell: bash
