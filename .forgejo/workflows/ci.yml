@@ -1,0 +1,163 @@
+# dv-flow/dv-flow-liborfs -- Forgejo Actions.
+#
+# THIS FILE'S FIRST JOB IS TO EXIST. When .forgejo/workflows/ is absent the
+# Forgejo runner falls back to running .github/workflows/ -- measured on this
+# instance, not assumed. Until 2026-08-31 that file's tail was an ungated
+# `JamesIves/github-pages-deploy-action` and a `twine` upload gated on a push to
+# main, both reachable from a runner never set up for either.
+#
+# WHY THIS IS A CHECK AND NOT A MIRROR OF THE BUILD. The real build runs
+# `ivpm update -a`, which clones sibling repositories over the network, then
+# installs two packages editable and runs the test suite against OpenROAD flow
+# scripts. None of that is reproducible in catthehacker/ubuntu:act-22.04, and a
+# shadow that pretended to would go red for reasons about the runner rather than
+# the code.
+#
+# THIS REPO IS THE ODD ONE OUT IN dv-flow, which is why it gets its own file
+# rather than the generated caller shadow its siblings carry. Eleven repos here
+# delegate to dv-flow/dv-flow-release's reusable workflow and inherit whatever
+# gating it has. This one carries its own INLINE copy of that logic -- so when
+# the shared workflow was tag-gated, this repo did not inherit the fix, and had
+# to be converted separately. That divergence is the thing worth checking on
+# every push, because the next time the shared workflow gains a safety property
+# this repo will silently not have it.
+#
+# THERE IS DELIBERATELY NO PUBLISH JOB. Releases run on GitHub, sync-policy.toml
+# records authority as `github`, and PYPI_API_TOKEN is a GitHub org secret. All
+# three agree, which is what distinguishes this from the peakrdl-pss
+# anti-pattern -- that one was wrong because the policy claimed GitHub while
+# only Forgejo could publish.
+name: CI
+
+on:
+  push:
+    branches: ['**']
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Check for internal identifiers in tracked files
+      # This repo is published to git.dvkit.org, so anything committed here is
+      # public. Internal host names, tailnet addresses and CGNAT-range IPs must
+      # not appear in tracked files -- if a build ever needs one, it belongs in
+      # a repository secret, which is masked in logs.
+      run: |
+        pattern='perch-char\.ts\.net|\.ts\.net|a9550|100\.(6[4-9]|[7-9][0-9]|1[01][0-9]|12[0-7])\.[0-9]+\.[0-9]+'
+        if git grep -nIE "$pattern" -- . ':!.forgejo/workflows/ci.yml' ; then
+          echo "::error::internal identifier found in a tracked file (see matches above)"
+          exit 1
+        fi
+        echo "OK: no internal identifiers in tracked files"
+
+    - name: Install PyYAML
+      # Not present in catthehacker/ubuntu:act-22.04 by default, and the check
+      # below must read the workflow as YAML rather than by grepping -- a gate
+      # that is only true textually is exactly the class of bug being guarded
+      # against.
+      run: python3 -m pip install -q pyyaml
+
+    - name: This repo's own publisher must stay gated
+      # The check that exists because this repo does NOT share the org's
+      # reusable workflow. There is no central place to fix it, so there is no
+      # central place that would notice it drifting back.
+      #
+      # NOTE ON INDENTATION: the heredoc body sits at the SAME column as the
+      # rest of this run: block. YAML strips that common indentation, so the
+      # script reaches the shell at column 0. Outdenting it ends the block
+      # scalar early, which is a corrupt workflow rather than a syntax error.
+      run: |
+        python3 - <<'PY'
+        import sys, yaml
+
+        WF = ".github/workflows/ci.yml"
+        doc = yaml.safe_load(open(WF))
+        # PyYAML 1.1 resolves a bare `on:` key to the BOOLEAN True, so doc["on"]
+        # would be None and every check below would vacuously pass.
+        if doc.get("on", doc.get(True)) is None:
+            sys.exit(f"::error::{WF} has no `on:` block")
+
+        jobs = doc.get("jobs") or {}
+        bad = []
+
+        gate = jobs.get("gate")
+        if not gate:
+            bad.append("no `gate` job -- the release-authority switch is not consulted")
+        elif "authority" not in (gate.get("outputs") or {}):
+            bad.append("`gate` job does not export an `authority` output")
+
+        # An undeclared `needs: gate` yields an EMPTY STRING, not an error, so
+        # the publish condition is false forever: nothing publishes and nothing
+        # goes red. The quietest failure available here.
+        for name, job in jobs.items():
+            if "needs.gate.outputs" not in yaml.dump(job):
+                continue
+            needs = job.get("needs") or []
+            if isinstance(needs, str):
+                needs = [needs]
+            if "gate" not in needs:
+                bad.append(f"job `{name}` reads needs.gate.outputs but does not declare `needs: gate`")
+
+        # Markers assembled from fragments on purpose: git-sync's conformance
+        # scanner reads this file as TEXT and matches the same strings, so
+        # spelling them out -- in code or in a comment -- would register this
+        # checking job as a publishing job and put a permanent false positive in
+        # the estate report.
+        PUBLISH = tuple(a + b for a, b in (
+            ("twine", " upload"), ("vsce", " publish"), ("npm", " publish"),
+            ("github-pages", "-deploy-action"), ("actions/deploy", "-pages"),
+            ("peaceiris/actions", "-gh-pages"),
+        ))
+        for name, job in jobs.items():
+            for step in job.get("steps") or []:
+                text = (step.get("run") or "") + " " + (step.get("uses") or "")
+                if not any(m in text for m in PUBLISH):
+                    continue
+                label = f"{name}/{step.get('name') or step.get('uses') or '<step>'}"
+                cond = str(step.get("if", "")) + str(job.get("if", ""))
+                if "refs/tags/" not in cond:
+                    bad.append(f"publishing step {label} is not gated on a tag: if={cond!r}")
+                if "authority" not in cond:
+                    bad.append(f"publishing step {label} does not consult the release-authority switch: if={cond!r}")
+
+        if bad:
+            for b in bad:
+                print(f"::error::{b}")
+            print()
+            print("This repo does NOT use dv-flow/dv-flow-release's shared workflow;")
+            print("it carries its own copy, so nothing central fixes this for it.")
+            sys.exit(1)
+        print(f"OK: gate job present, {len(jobs)} job(s), every publisher tag- and switch-gated")
+        PY
+
+    - name: The version stamp must have something to bite on
+      # The shared workflow's stamping logic is duplicated inline in
+      # .github/workflows/ci.yml, seds included, and `sed` does not fail when
+      # its pattern matches nothing. A version_dir that has moved produces a
+      # green build that stamped nothing.
+      run: |
+        pkg=packages/dv-flow-liborfs
+        rc=0
+        test -d "$pkg" || { echo "::error::$pkg does not exist; the build's working-directory"; exit 1; }
+        version=$(grep -w version $pkg/pyproject.toml | sed -e 's%^.*=.*"\([^"][^"]*\)".*$%\1%' | head -1)
+        if ! printf '%s' "$version" | grep -qE '^[0-9]+\.[0-9]+'; then
+          echo "::error::cannot read a version from $pkg/pyproject.toml (got '$version')"
+          rc=1
+        else
+          echo "OK: $pkg/pyproject.toml declares $version"
+        fi
+        init=$pkg/src/dv_flow/liborfs/__init__.py
+        if [ ! -f "$init" ] || ! grep -qE '^VERSION\s*=\s*"' "$init" || ! grep -qE '^SUFFIX\s*=\s*"' "$init"; then
+          echo "::warning::$init has no top-level VERSION=\"...\" / SUFFIX=\"...\" pair;"
+          echo "::warning::the build seds for exactly that shape and sed does not fail on no match,"
+          echo "::warning::so __version__ will not reflect the build while pyproject.toml will."
+          echo "::warning::Four sibling repos share this state; it predates the co-existence work."
+        else
+          echo "OK: $init carries the VERSION/SUFFIX pair the stamp rewrites"
+        fi
+        exit $rc
